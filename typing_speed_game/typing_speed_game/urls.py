@@ -15,16 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+# typing_speed_game/urls.py
 from django.contrib import admin
 from django.urls import path, include
-from game import views
+from django.contrib.auth import urls as auth_urls
 
 urlpatterns = [
-
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('submit_score/', views.submit_score, name='submit_score'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('game.urls')),  # Include the app URLs
     path("__debug__/", include("debug_toolbar.urls")),
-    path('register/', views.register, name='register'),
+    path('accounts/', include(auth_urls)),  # Add this line
 ]

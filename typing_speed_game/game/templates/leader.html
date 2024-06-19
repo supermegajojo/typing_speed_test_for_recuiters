@@ -1,0 +1,32 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="leaderboard">
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Score</th>
+            </tr>
+            {% for score in scores %}
+            <tr>
+                <td>
+                    {% if score.user %}
+                        {{ score.user|default:'Anonymous' }}
+                    {% else %}
+                        Anonymous
+                    {% endif %}
+                </td>
+                <td>{{ score.max_score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html> -->

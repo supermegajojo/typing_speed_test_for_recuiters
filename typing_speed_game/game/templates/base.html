@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Typing Speed Game{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="left">
+                
+                <p class="welcome-message">Welcome {{ user.username }}</p>
+                {% if user.is_authenticated %}
+                <script>var isAuthenticated = true;</script>
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Log Out</button>
+                </form>
+                {% else %}
+                <script>var isAuthenticated = false;</script>
+                <a href="{% url 'register' %}" class="btn btn-primary">Sign up</a>
+                <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+                {% endif %}
+                <a href="{% url 'home' %}" class="btn btn-secondary">Home page</a>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Typing Speed Game. All rights reserved.</p>
+            <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
+        </div>
+    </footer>
+
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+
+</html>

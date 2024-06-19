@@ -1,0 +1,88 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="wrapper">
+        <!-- Timer and Try Again button aligned horizontally -->
+        <div class="top-bar">
+            <div class="time">
+                <p>Time Left: <span><b>60</b></span></p>
+            </div>
+            <div class="actions">
+                {% if user.is_authenticated %}
+                    <button id="tryAgainBtn">Try Again</button>
+                {% else %}
+                    <button id="registerButton" style="display: none;" onclick="location.href='{{ register_url }}'">Register to See Your Score</button>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Typing game content -->
+        <input type="text" class="input-field">
+        <div class="content-box">
+            <div class="typing-text">
+                <p id="paragraph"></p>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="wrapper">
+        <input type="text" class="input-field">
+        <div class="content-box">
+            <div class="typing-text">
+                <p id="paragraph"></p>
+            </div>
+            <div class="content">
+                <ul class="result-details">
+                    <li class="time">
+                        <p>
+                            Time Left:
+                        </p>
+                        <span><b>60</b></span>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <button id = "tryAgainBtn">Try Again</button>
+                {% else %}
+                <button id="registerButton" style="display: none;" onclick="location.href='{{ register_url }}'">Register to See Your Score</button>
+
+                {% endif %}
+            </div>
+        </div>
+    </div> -->
+
+    <div class="sidebar">
+        {% if user.is_authenticated %}
+        <!-- Best Score and Latest Score Div -->
+        <div class="score-container">
+            <div class="score-box">
+                <p>Best Score: <span id="best-score">{% if best_score %}{{ best_score }}{% else %}N/A{% endif %}</span></p>
+                <p>Latest Score: <span id="latest-score">{% if latest_score %}{{ latest_score }}{% else %}N/A{% endif %}</span></p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Leaderboard -->
+        <div class="leaderboard">
+            <h2>Top 10 Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    {% for score in scores %}
+                    <tr>
+                        <td>{{ score.user.username|default:'Anonymous' }}</td>
+                        <td>{{ score.max_score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
