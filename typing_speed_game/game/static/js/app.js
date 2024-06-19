@@ -1,15 +1,4 @@
-/**
- * This code implements a typing speed game where the user is presented with a random paragraph of text and must type it as quickly and accurately as possible within a 60-second time limit.
- *
- * The key functionality includes:
- * - Loading a random paragraph from a predefined list of paragraphs
- * - Tracking the user's typing progress, including characters typed, mistakes, and typing speed (WPM)
- * - Displaying the current typing statistics (time remaining, mistakes, WPM, CPM)
- * - Providing a "Try Again" button to reset the game
- * - Showing a registration form when the time runs out to submit the user's score
- *
- * The code also includes utility functions for managing cookies and handling form submissions.
- */
+
 const paragraphs = [
     "Seems, madam! nay it is; I know not 'seems.' 'Tis not alone my inky cloak, good mother, Nor customary suits of solemn black, Nor windy suspiration of forced breath, No, nor the fruitful river in the eye, Nor the dejected 'havior of the visage, Together with all forms, moods, shapes of grief, That can denote me truly: these indeed seem, For they are actions that a man might play: But I have that within which passeth show; These but the trappings and the suits of woe.",
     "But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun. Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green And none but fools do wear it; cast it off. It is my lady, O, it is my love! O, that she knew she were!",
@@ -29,8 +18,7 @@ const paragraphs = [
     "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles And by opposing end them. To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause.",
     "O, beware, my lord, of jealousy; It is the green-eyed monster which doth mock The meat it feeds on; that cuckold lives in bliss Who, certain of his fate, loves not his wronger; But, O, what damned minutes tells he o'er Who dotes, yet doubts, suspects, yet strongly loves! Poor and content is rich and rich enough, But riches fineless is as poor as winter To him that ever fears he shall be poor. Good heaven, the souls of all my tribe defend From jealousy!",];
 
-/* this part set up references to HTML elements that will be 
-used later to handle user input and display relevant information */
+
 const typingText = document.querySelector(".typing-text p");
 const inpField = document.querySelector(".wrapper .input-field");
 const tryAgainBtn = document.getElementById("tryAgainBtn");
@@ -55,7 +43,6 @@ function loadParagraph() {
     } else {
         ranIndex = 0
     }
-    // const ranIndex = Math.floor(Math.random() * paragraphs.length);
     typingText.innerHTML = "";
     paragraphs[ranIndex].split("").forEach(char => {
         let span = `<span>${char}</span>`;
@@ -93,15 +80,8 @@ function initTyping() {
         }
         characters.forEach(span => span.classList.remove("active"));
         characters[charIndex].classList.add("active");
-
-        // let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
-        // wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-        // currentWpm = wpm;
         console.log('a')
         
-        // wpmTag.innerText = wpm;
-        // mistakeTag.innerText = mistakes;
-        // cpmTag.innerText = charIndex - mistakes;
 
     } else {
         clearInterval(timer);
@@ -112,7 +92,7 @@ function initTyping() {
         console.log(scoreSubmitted)
 
         if (!scoreSubmitted) {
-            scoreSubmitted = true; // Set the flag to true to prevent further submissions
+            scoreSubmitted = true; 
             if (isAuthenticated) {
                 submitScore();
                 console.log('submitted score');
@@ -127,10 +107,8 @@ function initTyping() {
 
 
 function submit_pending_score(){
-    // const score = Math.round(((charIndex - mistakes) / 5) / maxTime * 60);
     const score =  Math.round((charIndex - mistakes)/maxTime*60);
     console.log("submit_pending_score triggered");
-    // Store the pending score in Django session and redirect to the registration page
     fetch('/store_pending_score/', {
         method: 'POST',
         body: JSON.stringify({ "pending_score": score }),
@@ -239,7 +217,6 @@ function updateLeaderboard() {
 
 
 function submitScore() {
-    // const score = Math.round(((charIndex - mistakes) / 5) / maxTime * 60)
     score =  Math.round((charIndex - mistakes)/maxTime*60);
     fetch('/submit_score/', {
         method: 'POST',
