@@ -26,7 +26,8 @@ SECRET_KEY = "django-insecure-zuvy6wkuz5e%5g*htw3rm&g88kq@_6+5%oz&vt#&=vmujs^-25
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+APP_NAME = os.environ.get("APP_NAME")
+ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev",'localhost','127.0.0.1', 'typing-speed-game.fly.dev']  # ← Updated!
 
 
 # Application definition
@@ -132,6 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "game/static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

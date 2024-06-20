@@ -30,7 +30,7 @@ const cpmTag = document.querySelector(".cpm span");
 
 
 let timer;
-let maxTime = 10;
+let maxTime = 60;
 let timeLeft = maxTime;
 let charIndex = mistakes = isTyping = 0;
 let scoreSubmitted = false;
