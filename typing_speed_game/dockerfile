@@ -16,8 +16,12 @@ RUN set -ex && \
     rm -rf /root/.cache/
 COPY . /code
 
+# Apply database migrations
+RUN python manage.py migrate --noinput
+
 ENV SECRET_KEY "YqUW6J6EBBnAPkyhaWCLx8Xk3PWWjnkfJXbn5EyMp4zgwW4cCt"
 RUN python manage.py collectstatic --noinput
+
 
 EXPOSE 8000
 
