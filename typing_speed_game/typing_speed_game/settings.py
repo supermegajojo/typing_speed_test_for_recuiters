@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-zuvy6wkuz5e%5g*htw3rm&g88kq@_6+5%oz&vt#&=vmujs^-25
 DEBUG = True
 
 APP_NAME = os.environ.get("APP_NAME")
-ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev",'localhost','127.0.0.1', 'typing-speed-game.fly.dev']  # ← Updated!
+ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev",'localhost','127.0.0.1', 'typing-speed-game.fly.dev','typing-speed-game-blue-sea-4844.fly.dev']  # ← Updated!
 
 
 # Application definition
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "game",
-    "debug_toolbar",
     'django_extensions',
     'import_export',
 ]
@@ -53,12 +52,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://typing-speed-game.fly.dev']
+CSRF_TRUSTED_ORIGINS = ['https://typing-speed-game.fly.dev','https://typing-speed-game-blue-sea-4844.fly.dev']
 
 INTERNAL_IPS = [
     # ...
@@ -96,6 +94,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
 
 
 # Password validation
