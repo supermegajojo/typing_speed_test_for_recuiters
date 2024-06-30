@@ -32,20 +32,20 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-zuvy6wkuz5e%5g*htw3rm&g88k
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # Ensure the application knows when it's behind a secure proxy
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# # Redirect all non-HTTPS traffic to HTTPS
-# SECURE_SSL_REDIRECT = True
+# Redirect all non-HTTPS traffic to HTTPS
+SECURE_SSL_REDIRECT = True
 
-# # Use Strict-Transport-Security to force clients to always connect via HTTPS (1 hour for testing)
-# SECURE_HSTS_SECONDS = 3600
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+# Use Strict-Transport-Security to force clients to always connect via HTTPS (1 hour for testing)
+SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
-# # Other security settings
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SESSION_COOKIE_SECURE = True
+# Other security settings
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = True
 
 # APP_NAME = os.environ.get("APP_NAME")
 

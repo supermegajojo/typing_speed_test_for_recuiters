@@ -241,6 +241,7 @@ footer {
     color: #ddd;
     position: relative;
     font-family: 'Courier Prime', monospace;
+    white-space: pre-wrap;
 }
 
 .typing-text p span {
