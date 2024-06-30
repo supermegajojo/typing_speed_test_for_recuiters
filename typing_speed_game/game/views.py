@@ -15,7 +15,6 @@ The `save_score` function handles the saving of a new score. If the request meth
 """
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Score
@@ -25,9 +24,10 @@ from django.db.models import Max
 import json
 from django.contrib.auth.models import User 
 from django.urls import reverse
-from django.http import HttpResponse, JsonResponse
-from django.template.loader import render_to_string
 from django.views.generic import TemplateView
+# from .models import TypingText
+
+
 
 
 def home(request):
@@ -56,6 +56,14 @@ def home(request):
         'best_score': best_score,
         'latest_score': latest_score,
     })
+
+
+# def get_text(request):
+#     if request.user.is_authenticated:
+#         return JsonResponse({"text": None})  # No text for authenticated users as they use the JS-defined texts
+#     else:
+#         default_text = TypingText.objects.filter(is_default=True).first()
+#         return JsonResponse({"text": default_text.content if default_text else ""})
 
 def get_leaderboard(request):
     top_scores = (Score.objects.values('user')
@@ -128,13 +136,13 @@ def store_pending_score(request):
     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
 
 
-@csrf_exempt
-def save_score(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        request.session['latest_score'] = data['score']
-        return JsonResponse({'status': 'success'})
-    return JsonResponse({'status': 'failed'}, status=400)
+# @csrf_exempt
+# def save_score(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         request.session['latest_score'] = data['score']
+#         return JsonResponse({'status': 'success'})
+#     return JsonResponse({'status': 'failed'}, status=400)
 
 
 class PrivacyPolicyView(TemplateView):
@@ -142,3 +150,6 @@ class PrivacyPolicyView(TemplateView):
 
 class TermsOfServiceView(TemplateView):
     template_name = 'terms_of_service.html'
+
+class ContactView(TemplateView):
+    template_name = 'contact.html'

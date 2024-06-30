@@ -2,7 +2,24 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from import_export import resources, fields
 from import_export.admin import ExportMixin
-from .models import Profile
+from .models import Profile #, TypingText
+
+# class TypingTextAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'is_default')
+#     list_filter = ('is_default',)
+#     search_fields = ('title', 'content')
+#     actions = ['make_default']
+
+#     def make_default(self, request, queryset):
+#         if queryset.count() == 1:
+#             TypingText.objects.update(is_default=False)
+#             queryset.update(is_default=True)
+#             self.message_user(request, "Default text updated.")
+#         else:
+#             self.message_user(request, "Please select only one text to make default.", level='error')
+#     make_default.short_description = "Make selected text default"
+
+# admin.site.register(TypingText, TypingTextAdmin)
 
 class ProfileResource(resources.ModelResource):
     class Meta:

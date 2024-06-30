@@ -22,9 +22,11 @@ body {
 header {
     width: 100%;
     background-color: #333;
-    max-height: 200px;
+    height: 60px; /* Adjusted to increase the header height */
+    max-height: 100px;
     color: #fff;
-    padding: 15px 0;
+    padding: 20px 0 30px; /* Adjusted to increase vertical padding */
+    font-size: 18px; /* Example adjustment to increase font size */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,16 +39,30 @@ header {
 
 header .container {
     display: flex;
-    justify-content: center; /* Center the content */
-    align-items: flex-start;
+    justify-content: space-between; /* Center the content */
+    align-items: center;
     width: 100%;
     margin-top: 10px;
-    padding: 0 20px;
+    padding-top: 0 0px;
 }
 
 header .left {
     display: flex;
     align-items: flex-start;
+    margin-right: 20px; /* Optional: Adds some space between this div and the next element */
+}
+
+
+header .middle {
+    display: flex;
+    align-items: flex-start;
+}
+
+
+header .right {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 20px; /* Optional: Adds some space between this div and the next element */
 }
 
 header p {
@@ -83,11 +99,18 @@ header a.btn-primary {
 }
 
 header a.btn-secondary {
-    background-color: #a0aec0;
+    background-color: #6c829e;
 }
 
 header a.btn-secondary:hover {
-    background-color: #718096;
+    background-color: #3a424e;
+}
+header a.btn-contact{
+    background-color: #f81111;
+}
+
+header a.btn-contact:hover{
+    background-color: #420707;
 }
 
 header form {
@@ -318,6 +341,12 @@ footer {
     background-color: #444;
 }
 
+
+.content-wrapper {
+    margin-top: 50px;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 20px;}
 /* Responsive design */
 @media (max-width: 768px) {
     .container {

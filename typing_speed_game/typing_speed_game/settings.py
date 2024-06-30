@@ -20,13 +20,36 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-zuvy6wkuz5e%5g*htw3rm&g88kq@_6+5%oz&vt#&=vmujs^-25"
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = "django-insecure-zuvy6wkuz5e%5g*htw3rm&g88kq@_6+5%oz&vt#&=vmujs^-25"
+
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-zuvy6wkuz5e%5g*htw3rm&g88kq@_6+5%oz&vt#&=vmujs^-25")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = os.getenv("DEBUG", "True") == "True"
 
-APP_NAME = os.environ.get("APP_NAME")
+# SECURE_SSL_REDIRECT = False
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+# Ensure the application knows when it's behind a secure proxy
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# # Redirect all non-HTTPS traffic to HTTPS
+# SECURE_SSL_REDIRECT = True
+
+# # Use Strict-Transport-Security to force clients to always connect via HTTPS (1 hour for testing)
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+
+# # Other security settings
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SESSION_COOKIE_SECURE = True
+
+# APP_NAME = os.environ.get("APP_NAME")
+
+APP_NAME = os.getenv("APP_NAME", "typing-speed-game")
 ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev",'localhost','127.0.0.1', 'typing-speed-game.fly.dev','typing-speed-game-blue-sea-4844.fly.dev']  # ← Updated!
 
 
@@ -88,12 +111,28 @@ WSGI_APPLICATION = "typing_speed_game.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
+database_url = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+if database_url.startswith('sqlite:///'):
+    # Extract the file path from the URL
+    db_path = database_url[10:]
+else:
+    db_path = os.path.join(BASE_DIR, 'db.sqlite3')
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': db_path,
     }
 }
+
 
 
 

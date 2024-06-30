@@ -11,9 +11,15 @@
     <!-- Header Section -->
     <header>
         <div class="container">
-            <div class="left">
-                
-                <p class="welcome-message">Welcome {{ user.username }}</p>
+            <div class = "left">
+
+                <a href="{% url 'home' %}" class="btn btn-secondary">Home page</a>
+
+            </div>
+            <div class="middle">
+                <p class="welcome-message">Welcome {{ user.username }}</p>                
+            </div> 
+            <div class="right">            
                 {% if user.is_authenticated %}
                 <script>var isAuthenticated = true;</script>
                 <form action="{% url 'logout' %}" method="post" style="display: inline;">
@@ -25,8 +31,11 @@
                 <a href="{% url 'register' %}" class="btn btn-primary">Sign up</a>
                 <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
                 {% endif %}
-                <a href="{% url 'home' %}" class="btn btn-secondary">Home page</a>
+
+
+                <a href="{% url 'contact' %}" class="btn btn-contact">Contact me</a>
             </div>
+
         </div>
     </header>
 
@@ -38,13 +47,11 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Typing Speed Game. All rights reserved.</p>
+            <p>&copy; 2024 Type with Joan. All rights reserved.</p>
             <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
             <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
         </div>
     </footer>
-
-
 
     <script src="{% static 'js/app.js' %}"></script>
 </body>

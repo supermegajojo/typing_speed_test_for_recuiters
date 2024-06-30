@@ -4,8 +4,9 @@ FROM python:${PYTHON_VERSION}
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DEBUG False
 
-RUN mkdir -p /code
+RUN mkdir -p /code /data
 
 WORKDIR /code
 
@@ -14,10 +15,40 @@ RUN set -ex && \
     pip install --upgrade pip && \
     pip install -r /tmp/requirements.txt && \
     rm -rf /root/.cache/
+
 COPY . /code
 
 ENV SECRET_KEY "sdbJevm35bNnQamMVNeVgrhi6eFiRHSrfqUnMQhGikYdRC4f6F"
+ENV DATABASE_URL "sqlite:////data/db.sqlite3"
+
+VOLUME ["/data"]
+
+# Ensure the /data directory exists and has the correct permissions
+RUN mkdir -p /data && chmod -R 750 /data
+
+# Diagnostic step: Print the environment variables and directory structure and permissions
+RUN echo "DATABASE_URL=$DATABASE_URL" && \
+    echo "SECRET_KEY=$SECRET_KEY" && \
+    ls -l / && ls -l /data
+
+# Check if the SQLite database file exists before running migrations
+RUN if [ ! -f /data/db.sqlite3 ]; then \
+    echo "Creating initial SQLite database file"; \
+    touch /data/db.sqlite3; \
+    chmod 777 /data/db.sqlite3; \
+fi
+
+# Diagnostic step: Verify the SQLite database file after creation
+RUN ls -l /data/db.sqlite3
+
+# Run a shell to debug the environment if migration fails
+RUN python manage.py migrate --noinput 
+
+# Collect static files
 RUN python manage.py collectstatic --noinput
+
+# Ensure the /data directory has the correct permissions again
+RUN chmod -R 777 /data
 
 EXPOSE 8000
 

@@ -1,5 +1,6 @@
 
 const paragraphs = [
+    "Congratulations, you've found a typing game lovingly crafted with a yummy vanilla Javascript front-end and a wicked Python Django back-end. It's an exercise showcasing my skills and catching the emails of employers interested in connecting with me. Now, see if you can reach the top of the leaderboard by wordsmithing with none other than the Bard himself. And remember, some are born great, some achieve greatness, and some have greatness thrust upon them. Best of luck, Joan Akibode",
     "Seems, madam! nay it is; I know not 'seems.' 'Tis not alone my inky cloak, good mother, Nor customary suits of solemn black, Nor windy suspiration of forced breath, No, nor the fruitful river in the eye, Nor the dejected 'havior of the visage, Together with all forms, moods, shapes of grief, That can denote me truly: these indeed seem, For they are actions that a man might play: But I have that within which passeth show; These but the trappings and the suits of woe.",
     "But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun. Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green And none but fools do wear it; cast it off. It is my lady, O, it is my love! O, that she knew she were!",
     "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day To the last syllable of recorded time, And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage And then is heard no more: it is a tale Told by an idiot, full of sound and fury, Signifying nothing.",
@@ -35,6 +36,57 @@ let timeLeft = maxTime;
 let charIndex = mistakes = isTyping = 0;
 let scoreSubmitted = false;
 let ranIndex = 0
+let isGamePlaying = false; 
+
+
+
+
+// function loadParagraph() {
+//     if (isAuthenticated) {
+//         ranIndex = Math.floor(Math.random() * paragraphs.length);
+//         const text = paragraphs[ranIndex];
+//         displayText(text);
+//     } else {
+//         fetch('/get_text/')
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('No default text found');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             const text = data.text;
+//             displayText(text);
+//         })
+//         .catch(error => {
+//             console.error('Error fetching text:', error);
+//             const fallbackText = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+//             displayText(fallbackText);
+//         });
+//     }
+// }
+
+// function displayText(text) {
+//     typingText.innerHTML = "";
+//     text.split("").forEach(char => {
+//         let span = `<span>${char}</span>`;
+//         typingText.innerHTML += span;
+//     });
+//     typingText.querySelectorAll("span")[0].classList.add("active");
+//     // document.addEventListener("keydown", () => inpField.focus());
+
+//     document.addEventListener("keydown", (event) => {
+//         if (event.key === "Backspace") {
+//             // Prevent the default backspace action if necessary conditions are met
+//             event.preventDefault();
+//         } else {
+//             // Focus the input field only if another key is pressed
+//             inpField.focus();
+//         }
+//     });
+//     typingText.addEventListener("click", () => inpField.focus());
+// }
+
 
 function loadParagraph() {
 
@@ -49,7 +101,15 @@ function loadParagraph() {
         typingText.innerHTML += span;
     });
     typingText.querySelectorAll("span")[0].classList.add("active");
-    document.addEventListener("keydown", () => inpField.focus());
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Backspace") {
+            // Prevent the default backspace action if necessary conditions are met
+            event.preventDefault();
+        } else {
+            // Focus the input field only if another key is pressed
+            inpField.focus();
+        }
+    });
     typingText.addEventListener("click", () => inpField.focus());
 }
 
